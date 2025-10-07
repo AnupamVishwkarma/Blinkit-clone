@@ -10,24 +10,22 @@ const resend = new Resend(process.env.RESEND_API);
 
 const sendEmail = async({sendTo, subject, html})=>{
     try {
-        const { data, error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
     from: 'Blinkit <onboarding@resend.dev>',
-    to: ['delivered@resend.dev'],
-    subject: 'Hello World',
-    html: '<strong>It works!</strong>',
+    to:sendTo,
+    subject: subject,
+    html: html,
   });
-
-    }catch(error){
-        console.log(error)
-    }
-}
-
-(async function () {
-  
 
   if (error) {
     return console.error({ error });
   }
 
-  console.log({ data });
-})();
+  return data
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
+export default sendEmail
